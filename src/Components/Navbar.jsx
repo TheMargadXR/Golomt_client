@@ -16,24 +16,13 @@ export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [token, setToken] = useState(Cookies.get("token") || null);
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const response = await axios.get(
-  //         `http://localhost:8000/user/token/${token}`
-  //       );
-  //       setToken(response.data);
-  //       console.log("navbar data:", response.data);
-  //     } catch (error) {
-  //       console.error("Error during data retrieval:", error);
-  //     }
-  //   }
-
-  //   fetchData();
-  // }, []);
+  const exit = () => {
+    Cookies.remove("token");
+    window.location.href = "/";
+  };
 
   return (
-    <header className="bg-[#153448] z-1">
+    <header className="bg-[#496989] z-1">
       <nav
         className="mx-auto flex h-full max-w-7xl items-center justify-between p-6 lg:px-8"
         aria-label="Global"
@@ -87,57 +76,60 @@ export default function Example() {
               </Popover.Panel>
             </Transition>
           </Popover>
-
-          <Link
-            to="/"
-            className="text-md font-regular leading-6 text-[#f4f4f4] hover:text-[#DFD0B8] duration-150 hover:font-normal"
-          >
-            Эхлэл
-          </Link>
-          <Link
-            to="/categories"
-            className="text-md font-regular leading-6 text-[#f4f4f4] hover:text-[#DFD0B8] duration-150 hover:font-normal"
-          >
-            Категори
-          </Link>
-          <Link
-            to="#"
-            className="text-md font-regular leading-6 text-[#f4f4f4] hover:text-[#DFD0B8] duration-150 hover:font-normal"
-          >
-            Агуулга
-          </Link>
-          <Link
-            to="#"
-            className="text-md font-regular leading-6 text-[#f4f4f4] hover:text-[#DFD0B8] duration-150 hover:font-normal"
-          >
-            Бидний тухай
-          </Link>
+          {token ? (
+            <>
+              <Link
+                to="/dashboard"
+                className="text-md font-regular leading-6 text-[#f4f4f4] hover:text-[#DFD0B8] duration-150 hover:font-normal"
+              >
+                Гүйлгээ
+              </Link>
+              <Link
+                to="/FrequencyTransaction"
+                className="text-md font-regular leading-6 text-[#f4f4f4] hover:text-[#DFD0B8] duration-150 hover:font-normal"
+              >
+                Захиалгах гүйлгээ
+              </Link>
+            </>
+          ) : (
+            <></>
+          )}
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           {token ? (
-            <Link
-              to={`/dashboard`}
-              className="font-thin leading-6 text-[#f4f4f4] duration-200 bg-[#4A4E69] px-3 py-2 rounded-md hover:bg-[#22223B]"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
+            <>
+              <Link
+                to={`/dashboard`}
+                className="font-thin leading-6 text-[#f4f4f4] duration-200 bg-blue-500 px-3 py-2.5 rounded-md transition duration-300 hover:bg-blue-600"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-                />
-              </svg>
-            </Link>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                  />
+                </svg>
+              </Link>
+              <button onClick={exit}>
+                <Link
+                  to="/" // Change this to the desired exit/logout page
+                  className="font-regular leading-6 text-[#f4f4f4] bg-blue-500 px-3 py-3 rounded-md transition duration-300 hover:bg-blue-600 ml-2" // Added ml-2 for some spacing between buttons
+                >
+                  Гарах
+                </Link>
+              </button>
+            </>
           ) : (
             <Link
               to="/login"
-              className="font-regular leading-6 text-[#f4f4f4] duration-200 bg-[#3C5B6F] px-3 py-2 rounded-md hover:bg-[#DFD0B8] hover:text-[#3C5B6F]"
+              className="font-regular leading-6 text-[#f4f4f4]  bg-blue-500 px-3 py-2 rounded-md duration-300 hover:bg-blue-600 hover:text-[#3C5B6F]"
             >
               Нэвтрэх
             </Link>
@@ -175,30 +167,39 @@ export default function Example() {
                     </>
                   )}
                 </Disclosure>
-                <Link
-                  to="#"
-                  className="-mx-3 block rounded-lg text-[#f4f4f4] px-3 py-2 text-base font-thin leading-7 hover:bg-gray-50"
-                >
-                  Эхлэл
-                </Link>
-                <Link
-                  to="/categories"
-                  className="-mx-3 block rounded-lg text-[#f4f4f4] px-3 py-2 text-base font-thin leading-7 hover:bg-gray-50"
-                >
-                  Категори
-                </Link>
-                <Link
-                  to="#"
-                  className="-mx-3 block rounded-lg text-[#f4f4f4] px-3 py-2 text-base font-thin leading-7 hover:bg-gray-50"
-                >
-                  Агуулга
-                </Link>
-                <Link
-                  to="#"
-                  className="-mx-3 block rounded-lg text-[#f4f4f4] px-3 py-2 text-base font-thin leading-7 hover:bg-gray-50"
-                >
-                  Бидний тухай
-                </Link>
+                {token ? (
+                  <>
+                    <Link
+                      to={`/dashboard`}
+                      className="font-thin leading-6 text-[#f4f4f4] duration-200 bg-blue-500 px-3 py-2.5 rounded-md transition duration-300 hover:bg-blue-600"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                        />
+                      </svg>
+                    </Link>
+                    <button onClick={exit}>
+                      <Link
+                        to="/" // Change this to the desired exit/logout page
+                        className="font-regular leading-6 text-[#f4f4f4] bg-blue-500 px-3 py-3 rounded-md transition duration-300 hover:bg-blue-600 ml-2" // Added ml-2 for some spacing between buttons
+                      >
+                        Гарах
+                      </Link>
+                    </button>
+                  </>
+                ) : (
+                  <></>
+                )}
               </div>
 
               <div className="py-6">
@@ -225,7 +226,7 @@ export default function Example() {
                 ) : (
                   <Link
                     to="/login"
-                    className="font-thin leading-6 text-[#f4f4f4] duration-200 bg-[#4A4E69] px-3 py-2 rounded-md hover:bg-[#22223B]"
+                    className="font-regular leading-6 text-[#f4f4f4]  bg-blue-500 px-3 py-2 rounded-md duration-300 hover:bg-blue-600 hover:text-[#3C5B6F]"
                   >
                     Нэвтрэх
                   </Link>

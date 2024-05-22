@@ -37,11 +37,12 @@ const SignUp = () => {
       if (res.data.message === "successAccountCreated") {
         alert("Амжилттай бүртгүүллээ");
         window.location.href = "/login";
+      } else if (res.data.message === "PasswordNotSecure") {
+        alert("Нууц үг шаардлага хангахгүй байна");
       } else {
-        alert("Бүртгэл амжилтгүй !!!");
+        alert("Алдаа");
       }
       console.log(res.data.message);
-      window.location.href = "/login";
     } catch (error) {
       console.error("Error during registration:", error);
     }
@@ -159,7 +160,7 @@ const SignUp = () => {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-[#3C5B6F] hover:text-[#3C5B6F] px-3 py-1.5 text-sm font-regular leading-6 text-white shadow-sm hover:bg-[#DFD0B8] duration-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center rounded-md bg-blue-500  px-3 py-1.5 text-sm font-regular leading-6 text-white shadow-sm duration-300 hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Бүртгүүлэх
               </button>

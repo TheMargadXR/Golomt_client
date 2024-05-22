@@ -19,7 +19,7 @@ const notFound = () => {
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <Link
               to="/"
-              className="font-thin leading-6 text-[#f4f4f4] duration-200 bg-[#4A4E69] px-3 py-2 rounded-md hover:bg-[#22223B]"
+              className="font-thin leading-6 text-[#f4f4f4] duration-200 bg-blue-500  px-3 py-2 rounded-md rounded-md duration-300 hover:bg-blue-600"
             >
               Нүүр хуудас
             </Link>
